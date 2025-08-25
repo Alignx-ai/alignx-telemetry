@@ -27,14 +27,6 @@ license = "MIT"
 license-files = ["LICENSE*"]
 keywords = ["telemetry", "observability", "llm", "ai", "monitoring", "tracing", "logging", "opentelemetry", "langsmith"]
 
-[project.urls]
-Homepage = "https://github.com/Alignx-ai/alignx-telemetry"
-Documentation = "https://github.com/Alignx-ai/alignx-telemetry#readme"
-Repository = "https://github.com/Alignx-ai/alignx-telemetry.git"
-Issues = "https://github.com/Alignx-ai/alignx-telemetry/issues"
-Changelog = "https://github.com/Alignx-ai/alignx-telemetry/blob/main/CHANGELOG.md" 
-
-
 dependencies = [
     "langsmith[otel]>=0.3.33",
     "opentelemetry-api>=1.32.1",
@@ -117,6 +109,13 @@ dependencies = [
     "httpx>=0.24.0",
     "pynvml>=11.0.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Alignx-ai/alignx-telemetry"
+Documentation = "https://github.com/Alignx-ai/alignx-telemetry#readme"
+Repository = "https://github.com/Alignx-ai/alignx-telemetry.git"
+Issues = "https://github.com/Alignx-ai/alignx-telemetry/issues"
+Changelog = "https://github.com/Alignx-ai/alignx-telemetry/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
