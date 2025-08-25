@@ -1,0 +1,168 @@
+[project]
+name = "alignx-telemetry"
+version = "0.1.0"
+description = "Alignx Telemetry - complete comprehensive observability for your LLM applications"
+readme = "README.md"
+authors = [
+    { name = "Gopi A", email = "gopi.a@alignx.com" }
+]
+maintainers = [
+    { name = "Alignx Team", email = "team@alignx.com" }
+]
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Monitoring",
+    "Topic :: System :: Logging",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+license = "MIT"
+license-files = ["LICENSE*"]
+keywords = ["telemetry", "observability", "llm", "ai", "monitoring", "tracing", "logging", "opentelemetry", "langsmith"]
+
+[project.urls]
+Homepage = "https://github.com/Alignx-ai/alignx-telemetry"
+Documentation = "https://github.com/Alignx-ai/alignx-telemetry#readme"
+Repository = "https://github.com/Alignx-ai/alignx-telemetry.git"
+Issues = "https://github.com/Alignx-ai/alignx-telemetry/issues"
+Changelog = "https://github.com/Alignx-ai/alignx-telemetry/blob/main/CHANGELOG.md" 
+
+
+dependencies = [
+    "langsmith[otel]>=0.3.33",
+    "opentelemetry-api>=1.32.1",
+    "opentelemetry-exporter-otlp-proto-grpc>=1.32.1",
+    "opentelemetry-exporter-otlp-proto-http>=1.32.1",
+    "opentelemetry-instrumentation-aio-pika>=0.53b1",
+    "opentelemetry-instrumentation-aiohttp-client>=0.53b1",
+    "opentelemetry-instrumentation-aiohttp-server>=0.53b1",
+    "opentelemetry-instrumentation-aiokafka>=0.53b1",
+    "opentelemetry-instrumentation-aiopg>=0.53b1",
+    "opentelemetry-instrumentation-alephalpha>=0.39.2",
+    "opentelemetry-instrumentation-anthropic>=0.39.2",
+    "opentelemetry-instrumentation-asyncio>=0.53b1",
+    "opentelemetry-instrumentation-asyncpg>=0.53b1",
+    "opentelemetry-instrumentation-aws-lambda>=0.53b1",
+    "opentelemetry-instrumentation-bedrock>=0.39.2",
+    "opentelemetry-instrumentation-boto>=0.53b1",
+    "opentelemetry-instrumentation-boto3sqs>=0.53b1",
+    "opentelemetry-instrumentation-botocore>=0.53b1",
+    "opentelemetry-instrumentation-cassandra>=0.53b1",
+    "opentelemetry-instrumentation-celery>=0.53b1",
+    "opentelemetry-instrumentation-chromadb>=0.39.2",
+    "opentelemetry-instrumentation-cohere>=0.39.2",
+    "opentelemetry-instrumentation-confluent-kafka>=0.53b1",
+    "opentelemetry-instrumentation-crewai>=0.39.2",
+    "opentelemetry-instrumentation-django>=0.53b1",
+    "opentelemetry-instrumentation-elasticsearch>=0.53b1",
+    "opentelemetry-instrumentation-falcon>=0.53b1",
+    "opentelemetry-instrumentation-fastapi>=0.53b1",
+    "opentelemetry-instrumentation-flask>=0.53b1",
+    "opentelemetry-instrumentation-google-generativeai>=0.39.2",
+    "opentelemetry-instrumentation-groq>=0.39.2",
+    "opentelemetry-instrumentation-grpc>=0.53b1",
+    "opentelemetry-instrumentation-haystack>=0.39.2",
+    "opentelemetry-instrumentation-httpx>=0.53b1",
+    "opentelemetry-instrumentation-jinja2>=0.53b1",
+    "opentelemetry-instrumentation-kafka-python>=0.53b1",
+    "opentelemetry-instrumentation-lancedb>=0.39.2",
+    "opentelemetry-instrumentation-langchain>=0.39.2",
+    "opentelemetry-instrumentation-llamaindex>=0.39.2",
+    "opentelemetry-instrumentation-logging>=0.53b1",
+    "opentelemetry-instrumentation-marqo>=0.39.2",
+    "opentelemetry-instrumentation-milvus>=0.39.2",
+    "opentelemetry-instrumentation-mistralai>=0.39.2",
+    "opentelemetry-instrumentation-mysql>=0.53b1",
+    "opentelemetry-instrumentation-mysqlclient>=0.53b1",
+    "opentelemetry-instrumentation-ollama>=0.39.2",
+    "opentelemetry-instrumentation-openai>=0.39.2",
+    "opentelemetry-instrumentation-pika>=0.53b1",
+    "opentelemetry-instrumentation-pinecone>=0.39.2",
+    "opentelemetry-instrumentation-psycopg>=0.53b1",
+    "opentelemetry-instrumentation-psycopg2>=0.53b1",
+    "opentelemetry-instrumentation-pymemcache>=0.53b1",
+    "opentelemetry-instrumentation-pymongo>=0.53b1",
+    "opentelemetry-instrumentation-pymssql>=0.53b1",
+    "opentelemetry-instrumentation-pymysql>=0.53b1",
+    "opentelemetry-instrumentation-pyramid>=0.53b1",
+    "opentelemetry-instrumentation-qdrant>=0.39.2",
+    "opentelemetry-instrumentation-redis>=0.53b1",
+    "opentelemetry-instrumentation-remoulade>=0.53b1",
+    "opentelemetry-instrumentation-replicate>=0.39.2",
+    "opentelemetry-instrumentation-requests>=0.53b1",
+    "opentelemetry-instrumentation-sagemaker>=0.39.2",
+    "opentelemetry-instrumentation-sqlalchemy>=0.53b1",
+    "opentelemetry-instrumentation-sqlite3>=0.53b1",
+    "opentelemetry-instrumentation-starlette>=0.53b1",
+    "opentelemetry-instrumentation-system-metrics>=0.53b1",
+    "opentelemetry-instrumentation-threading>=0.53b1",
+    "opentelemetry-instrumentation-together>=0.39.2",
+    "opentelemetry-instrumentation-tornado>=0.53b1",
+    "opentelemetry-instrumentation-tortoiseorm>=0.53b1",
+    "opentelemetry-instrumentation-transformers>=0.39.2",
+    "opentelemetry-instrumentation-urllib>=0.53b1",
+    "opentelemetry-instrumentation-urllib3>=0.53b1",
+    "opentelemetry-instrumentation-vertexai>=0.39.2",
+    "opentelemetry-instrumentation-watsonx>=0.39.2",
+    "opentelemetry-instrumentation-weaviate>=0.39.2",
+    "opentelemetry-sdk>=1.32.1",
+    "opentelemetry-semantic-conventions-ai>=0.4.3",
+    "httpx>=0.24.0",
+    "pynvml>=11.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+    "types-requests>=2.31.0",
+    "types-urllib3>=1.26.0",
+]
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=1.3.0",
+    "myst-parser>=2.0.0",
+]
+
+[project.scripts]
+alignx-telemetry = "alignx_telemetry:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+    "types-requests>=2.31.0",
+    "types-urllib3>=1.26.0",
+]
+
+[tool.uv.scripts]
+test = "pytest"
+format = "black ."
+format-check = "black --check ."
+sort = "isort ."
+sort-check = "isort --check-only ."
+lint = "flake8"
+type-check = "mypy ."

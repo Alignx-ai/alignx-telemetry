@@ -1,0 +1,1418 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 1,
+    "id": null,
+    "links": [
+        {
+            "asDropdown": false,
+            "icon": "cloud",
+            "includeVars": false,
+            "keepTime": false,
+            "tags": [],
+            "targetBlank": true,
+            "title": "AlignX Platform",
+            "tooltip": "AlignX AI Platform",
+            "type": "link",
+            "url": "https://alignx.ai"
+        }
+    ],
+    "panels": [
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "gridPos": {
+                "h": 4,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 1,
+            "options": {
+                "content": "# 🚀 AlignX Enhanced AI Observability Dashboard\n\n**Industry-Leading LLM Monitoring with Advanced Metrics**\n\n**🎯 New Enhanced Features:**\n- 📊 **Latency Percentiles** - P50, P95, P99 performance tracking\n- ⚡ **Time to First Token** - Critical streaming performance metrics  \n- 💰 **Cost Optimization** - Advanced cost efficiency and savings tracking\n- 🎛️ **Streaming Analytics** - Comprehensive real-time performance monitoring\n- 🔍 **Error Intelligence** - Detailed error patterns and reliability metrics\n- 🏷️ **Token Intelligence** - Cached tokens, reasoning tokens, context utilization\n\n---\n*Powered by AlignX Telemetry SDK v2.0 - The most comprehensive LLM observability solution*",
+                "mode": "markdown"
+            },
+            "pluginVersion": "11.1.0",
+            "transparent": true,
+            "type": "text"
+        },
+        {
+            "title": "🚀 Core Performance Overview",
+            "type": "row",
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 4
+            },
+            "collapsed": false
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Total LLM requests processed",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 1000
+                            },
+                            {
+                                "color": "red",
+                                "value": 10000
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 4,
+                "x": 0,
+                "y": 5
+            },
+            "id": 2,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "11.1.0",
+            "targets": [
+                {
+                    "expr": "sum(gen_ai_requests_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"})",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Total Requests",
+                    "refId": "A"
+                }
+            ],
+            "title": "Total LLM Requests",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Request rate per second",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "reqps"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 8,
+                "x": 4,
+                "y": 5
+            },
+            "id": 3,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(gen_ai_requests_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m]))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Request Rate",
+                    "refId": "A"
+                }
+            ],
+            "title": "Request Rate",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Current error rate percentage",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "max": 100,
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 1
+                            },
+                            {
+                                "color": "red",
+                                "value": 5
+                            }
+                        ]
+                    },
+                    "unit": "percent"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 4,
+                "x": 12,
+                "y": 5
+            },
+            "id": 4,
+            "options": {
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+            },
+            "pluginVersion": "11.1.0",
+            "targets": [
+                {
+                    "expr": "(sum(rate(gen_ai_errors_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) / sum(rate(gen_ai_requests_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m]))) * 100",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Error Rate",
+                    "refId": "A"
+                }
+            ],
+            "title": "Error Rate",
+            "type": "gauge"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Total cost in USD",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 100
+                            },
+                            {
+                                "color": "red",
+                                "value": 1000
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 4,
+                "x": 16,
+                "y": 5
+            },
+            "id": 5,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "11.1.0",
+            "targets": [
+                {
+                    "expr": "sum(gen_ai_cost_usd_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"})",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Total Cost",
+                    "refId": "A"
+                }
+            ],
+            "title": "Total Cost",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Cost savings from cached tokens",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 4,
+                "x": 20,
+                "y": 5
+            },
+            "id": 6,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "11.1.0",
+            "targets": [
+                {
+                    "expr": "sum(gen_ai_cost_savings_cached_usd{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"})",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Cache Savings",
+                    "refId": "A"
+                }
+            ],
+            "title": "Cache Savings",
+            "type": "stat"
+        },
+        {
+            "title": "📊 Latency Percentiles (Industry Standard)",
+            "type": "row",
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 11
+            },
+            "collapsed": false
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Request latency percentiles - industry standard performance metrics",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                }
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 12
+            },
+            "id": 7,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max"
+                    ],
+                    "displayMode": "table",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_request_duration_seconds_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P50 (median)",
+                    "refId": "A"
+                },
+                {
+                    "expr": "histogram_quantile(0.95, sum(rate(gen_ai_request_duration_seconds_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P95",
+                    "refId": "B"
+                },
+                {
+                    "expr": "histogram_quantile(0.99, sum(rate(gen_ai_request_duration_seconds_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P99",
+                    "refId": "C"
+                }
+            ],
+            "title": "Request Latency Percentiles",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Time to First Token - critical metric for streaming performance",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                }
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 12
+            },
+            "id": 8,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max"
+                    ],
+                    "displayMode": "table",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_time_to_first_token_seconds_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "TTFT P50",
+                    "refId": "A"
+                },
+                {
+                    "expr": "histogram_quantile(0.95, sum(rate(gen_ai_time_to_first_token_seconds_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "TTFT P95",
+                    "refId": "B"
+                },
+                {
+                    "expr": "histogram_quantile(0.99, sum(rate(gen_ai_time_to_first_token_seconds_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "TTFT P99",
+                    "refId": "C"
+                }
+            ],
+            "title": "Time to First Token (TTFT)",
+            "type": "timeseries"
+        },
+        {
+            "title": "💰 Advanced Cost Intelligence",
+            "type": "row",
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 20
+            },
+            "collapsed": false
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Cost per request distribution",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "currencyUSD"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 8,
+                "x": 0,
+                "y": 21
+            },
+            "id": 9,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_cost_per_request_usd_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P50 Cost/Request",
+                    "refId": "A"
+                },
+                {
+                    "expr": "histogram_quantile(0.95, sum(rate(gen_ai_cost_per_request_usd_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P95 Cost/Request",
+                    "refId": "B"
+                }
+            ],
+            "title": "Cost per Request Distribution",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Cost efficiency - tokens per dollar",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 8,
+                "x": 8,
+                "y": 21
+            },
+            "id": 10,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_cost_efficiency_tokens_per_usd_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P50 Efficiency",
+                    "refId": "A"
+                }
+            ],
+            "title": "Cost Efficiency (Tokens/$)",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Breakdown of costs by model",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        }
+                    },
+                    "mappings": [],
+                    "unit": "currencyUSD"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 8,
+                "x": 16,
+                "y": 21
+            },
+            "id": 11,
+            "options": {
+                "legend": {
+                    "displayMode": "table",
+                    "placement": "right",
+                    "values": [
+                        "value"
+                    ]
+                },
+                "pieType": "pie",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "sum by (gen_ai_request_model) (gen_ai_cost_usd_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"})",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{gen_ai_request_model}}",
+                    "refId": "A"
+                }
+            ],
+            "title": "Cost by Model",
+            "type": "piechart"
+        },
+        {
+            "title": "🏷️ Token Intelligence & Optimization",
+            "type": "row",
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 27
+            },
+            "collapsed": false
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Token usage breakdown with caching optimization",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "normal"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 12,
+                "x": 0,
+                "y": 28
+            },
+            "id": 12,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(gen_ai_input_tokens_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m]))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Input Tokens",
+                    "refId": "A"
+                },
+                {
+                    "expr": "sum(rate(gen_ai_output_tokens_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m]))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Output Tokens",
+                    "refId": "B"
+                },
+                {
+                    "expr": "sum(rate(gen_ai_cached_tokens_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m]))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Cached Tokens",
+                    "refId": "C"
+                },
+                {
+                    "expr": "sum(rate(gen_ai_reasoning_tokens_total{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m]))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Reasoning Tokens (O1)",
+                    "refId": "D"
+                }
+            ],
+            "title": "Token Usage Rates",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Context window utilization efficiency",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "max": 1,
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "percentunit"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 12,
+                "x": 12,
+                "y": 28
+            },
+            "id": 13,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_context_utilization_ratio_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P50 Context Utilization",
+                    "refId": "A"
+                },
+                {
+                    "expr": "histogram_quantile(0.95, sum(rate(gen_ai_context_utilization_ratio_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P95 Context Utilization",
+                    "refId": "B"
+                }
+            ],
+            "title": "Context Window Utilization",
+            "type": "timeseries"
+        },
+        {
+            "title": "⚡ Streaming Performance Analytics",
+            "type": "row",
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 34
+            },
+            "collapsed": false
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Token generation rate for streaming responses",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 8,
+                "x": 0,
+                "y": 35
+            },
+            "id": 14,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_tokens_per_second_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\", streaming=\"true\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P50 Tokens/sec",
+                    "refId": "A"
+                },
+                {
+                    "expr": "histogram_quantile(0.95, sum(rate(gen_ai_tokens_per_second_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\", streaming=\"true\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P95 Tokens/sec",
+                    "refId": "B"
+                }
+            ],
+            "title": "Token Generation Rate",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Stream completion success rate",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "max": 1,
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": null
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 0.95
+                            },
+                            {
+                                "color": "green",
+                                "value": 0.99
+                            }
+                        ]
+                    },
+                    "unit": "percentunit"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 8,
+                "x": 8,
+                "y": 35
+            },
+            "id": 15,
+            "options": {
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "text": {}
+            },
+            "pluginVersion": "11.1.0",
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_stream_completion_ratio_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "Stream Success Rate",
+                    "refId": "A"
+                }
+            ],
+            "title": "Stream Completion Rate",
+            "type": "gauge"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "${metricsDatasource}"
+            },
+            "description": "Number of chunks per streaming response",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "vis": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                }
+            },
+            "gridPos": {
+                "h": 6,
+                "w": 8,
+                "x": 16,
+                "y": 35
+            },
+            "id": 16,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.50, sum(rate(gen_ai_stream_chunks_total_bucket{telemetry_sdk_name=\"alignx\", gen_ai_application_name=~\"$application\", gen_ai_environment=~\"$environment\"}[5m])) by (le))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "P50 Chunks",
+                    "refId": "A"
+                }
+            ],
+            "title": "Stream Chunks per Response",
+            "type": "timeseries"
+        }
+    ],
+    "refresh": "30s",
+    "schemaVersion": 39,
+    "style": "dark",
+    "tags": [
+        "alignx",
+        "ai",
+        "llm",
+        "observability",
+        "enhanced"
+    ],
+    "templating": {
+        "list": [
+            {
+                "current": {
+                    "selected": false,
+                    "text": "Prometheus",
+                    "value": "prometheus"
+                },
+                "hide": 0,
+                "includeAll": false,
+                "multi": false,
+                "name": "metricsDatasource",
+                "options": [],
+                "query": "prometheus",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "type": "datasource"
+            },
+            {
+                "allValue": ".*",
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${metricsDatasource}"
+                },
+                "definition": "label_values(gen_ai_requests_total{telemetry_sdk_name=\"alignx\"}, gen_ai_application_name)",
+                "hide": 0,
+                "includeAll": true,
+                "multi": true,
+                "name": "application",
+                "options": [],
+                "query": {
+                    "query": "label_values(gen_ai_requests_total{telemetry_sdk_name=\"alignx\"}, gen_ai_application_name)",
+                    "refId": "StandardVariableQuery"
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "allValue": ".*",
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "${metricsDatasource}"
+                },
+                "definition": "label_values(gen_ai_requests_total{telemetry_sdk_name=\"alignx\"}, gen_ai_environment)",
+                "hide": 0,
+                "includeAll": true,
+                "multi": true,
+                "name": "environment",
+                "options": [],
+                "query": {
+                    "query": "label_values(gen_ai_requests_total{telemetry_sdk_name=\"alignx\"}, gen_ai_environment)",
+                    "refId": "StandardVariableQuery"
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-1h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "AlignX Enhanced AI Observability Dashboard",
+    "uid": "alignx-enhanced-ai-observability",
+    "version": 1,
+    "weekStart": ""
+}
